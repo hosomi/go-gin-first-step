@@ -77,6 +77,8 @@ PS go-gin-first-step> go run main.go
         - index.html
 
 [GIN-debug] GET    /templates                --> main.main.func3 (4 handlers)
+[GIN-debug] GET    /static/*filepath         --> github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1 (4 handlers)
+[GIN-debug] HEAD   /static/*filepath         --> github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1 (4 handlers)
 [GIN-debug] Listening and serving HTTP on :3000
 ```
 

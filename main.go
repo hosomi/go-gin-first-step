@@ -28,5 +28,7 @@ func main() {
 		})
 	})
 
+	engine.Static("/static", "./static")
+
 	engine.Run(":3000")
 }

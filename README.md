@@ -87,5 +87,7 @@ PS go-gin-first-step> go run main.go
 | ----- | ---------------
 | / | hello world json
 | /templates | template hello world
+| /static/* | engine.Static (``http://localhost:3000/static/gin.png``)  *gin.png 
 
 
+*gin.png ：:link: [gin-gonic/gin: Gin is a HTTP web framework written in Go (Golang). It features a Martini-like API with much better performance -- up to 40 times faster. If you need smashing performance, get yourself some Gin.](https://github.com/gin-gonic/gin)   

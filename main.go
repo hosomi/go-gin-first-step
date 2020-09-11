@@ -19,5 +19,14 @@ func main() {
 			"User-Agent": ua,
 		})
 	})
+
+	engine.LoadHTMLGlob("templates/*")
+	engine.GET("/templates", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "index.html", gin.H{
+			"message": "hello world!",
+			"ua":      ua,
+		})
+	})
+
 	engine.Run(":3000")
 }

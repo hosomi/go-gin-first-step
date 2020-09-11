@@ -72,12 +72,20 @@ PS go-gin-first-step> go run main.go
  - using code:  gin.SetMode(gin.ReleaseMode)
 
 [GIN-debug] GET    /                         --> main.main.func2 (4 handlers)
+[GIN-debug] Loaded HTML Templates (2):
+        -
+        - index.html
+
+[GIN-debug] GET    /templates                --> main.main.func3 (4 handlers)
 [GIN-debug] Listening and serving HTTP on :3000
-[GIN] 2020/09/11 - 11:34:05 | 200 |            0s |             ::1 | GET      "/"
 ```
 
-``http:localhost:3000``  
 
-![hello world!](go-run-hello-world.png)  
+``http:localhost:3000`` :  
+
+| path | description
+| ----- | ---------------
+| / | hello world json
+| /templates | template hello world
 
 

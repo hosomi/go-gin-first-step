@@ -60,3 +60,24 @@ go: downloading google.golang.org/protobuf v1.25.0
 
 PS go-gin-first-step> code .
 ```
+
+## go run
+
+```powershell
+PS go-gin-first-step> go run main.go
+[GIN-debug] [WARNING] Creating an Engine instance with the Logger and Recovery middleware already attached.
+
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:   export GIN_MODE=release
+ - using code:  gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] GET    /                         --> main.main.func2 (4 handlers)
+[GIN-debug] Listening and serving HTTP on :3000
+[GIN] 2020/09/11 - 11:34:05 | 200 |            0s |             ::1 | GET      "/"
+```
+
+``http:localhost:3000``  
+
+![hello world!](go-run-hello-world.png)  
+
+

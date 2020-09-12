@@ -72,24 +72,28 @@ PS go-gin-first-step> go run main.go
  - using code:  gin.SetMode(gin.ReleaseMode)
 
 [GIN-debug] GET    /                         --> main.main.func2 (4 handlers)
-[GIN-debug] Loaded HTML Templates (2):
-        -
+[GIN-debug] Loaded HTML Templates (3):
+        - fileupload.html
         - index.html
+        -
 
 [GIN-debug] GET    /templates                --> main.main.func3 (4 handlers)
 [GIN-debug] GET    /static/*filepath         --> github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1 (4 handlers)
 [GIN-debug] HEAD   /static/*filepath         --> github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1 (4 handlers)
+[GIN-debug] GET    /upload                   --> main.main.func4 (4 handlers)
+[GIN-debug] POST   /upload                   --> main.main.func5 (4 handlers)
 [GIN-debug] Listening and serving HTTP on :3000
 ```
 
 
 ``http:localhost:3000`` :  
 
-| path | description
-| ----- | ---------------
-| / | hello world json
-| /templates | template hello world
-| /static/* | engine.Static (``http://localhost:3000/static/gin.png``)  *gin.png 
-
+| path       | method | description
+| ---------- | ------ | ---------------
+| /          | GET    | hello world json
+| /templates | GET    | template hello world
+| /static/*  | GET    | engine.Static (``http://localhost:3000/static/gin.png``)  *gin.png 
+| /upload    | GET    | file upload front
+| /upload    | POST   | file upload /images 
 
 *gin.png ：:link: [gin-gonic/gin: Gin is a HTTP web framework written in Go (Golang). It features a Martini-like API with much better performance -- up to 40 times faster. If you need smashing performance, get yourself some Gin.](https://github.com/gin-gonic/gin)   

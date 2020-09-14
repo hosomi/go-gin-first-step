@@ -121,7 +121,7 @@ basic end.
 
 ## 2. first step next REST API configuration.
 
-## 2.1 setup database
+### 2.1 setup database
 
 environment:  
 - MySQL 8.x(docker)
@@ -190,7 +190,7 @@ Creating mysql ... done
 ```powershell
 Name              Command             State                 Ports
 -------------------------------------------------------------------------------
-mysql   docker-entrypoint.sh mysqld   Up      0.0.0.0:3306->3306/tcp, 33060/tcp
+mysql   docker-entrypoint.sh mysqld   Up      0.0.0.0:3306->3306/tcp, 3306/tcp
 ```
 
 3. ``mysql -uroot -prootpassword -h 127.0.0.1 -P 3306``:  
@@ -228,4 +228,227 @@ Bye
 PS go-gin-first-step>
 ```
 
+
+### 2.2 packages setup
+
+* [mysql package · pkg.go.dev](https://pkg.go.dev/github.com/go-sql-driver/mysql?tab=doc)  
+``go get github.com/go-sql-driver/mysql``  
+
+* [xorm package · pkg.go.dev](https://pkg.go.dev/github.com/go-xorm/xorm?tab=doc)  
+``go get github.com/go-xorm/xorm``  
+
+* [zap package · pkg.go.dev](https://pkg.go.dev/go.uber.org/zap?tab=doc)  
+``go get go.uber.org/zap``  
+
+
+logs:  
+
+```powershell
+PS go-gin-first-step> go get github.com/go-sql-driver/mysql
+go: downloading github.com/go-sql-driver/mysql v1.5.0
+go: github.com/go-sql-driver/mysql upgrade => v1.5.0
+PS go-gin-first-step> go get github.com/go-xorm/xorm
+go: downloading github.com/go-xorm/xorm v0.7.9
+go: github.com/go-xorm/xorm upgrade => v0.7.9
+go: downloading xorm.io/builder v0.3.6
+go: downloading xorm.io/core v0.7.2-0.20190928055935-90aeac8d08eb
+PS go-gin-first-step> go get go.uber.org/zap
+go: downloading go.uber.org/zap v1.16.0
+go: go.uber.org/zap upgrade => v1.16.0
+go: downloading go.uber.org/atomic v1.6.0
+go: downloading go.uber.org/multierr v1.5.0
+```
+
+### 2.3 folder structur
+
+```powershell
+go-gin-first-step
+│  main.go
+│
+├─controller
+│      book.go
+│
+├─middleware
+│      bookMiddleware.go
+│
+├─model
+│      book.go
+│
+└─service
+       book.go
+       init.go
+```
+
+### 2.4 go run
+
+``go run main.go`` :  
+
+logs:  
+
+```powershell
+PS go-gin-first-step> go run main.go
+[xorm] [info]  2020/09/14 11:39:44.722407 [SQL] SELECT `TABLE_NAME`, `ENGINE`, `TABLE_ROWS`, `AUTO_INCREMENT`, `TABLE_COMMENT` from `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA`=? AND (`ENGINE`='MyISAM' OR `ENGINE` = 'InnoDB' OR `ENGINE` = 'TokuDB') [test]
+[xorm] [info]  2020/09/14 11:39:45.648517 [SQL] CREATE TABLE IF NOT EXISTS `book` (`id` INT(64) PRIMARY KEY AUTO_INCREMENT NOT NULL, `title` VARCHAR(40) NULL, `content` VARCHAR(40) NULL) DEFAULT CHARSET utf8
+init data base ok
+[GIN-debug] [WARNING] Creating an Engine instance with the Logger and Recovery middleware already attached.
+
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:   export GIN_MODE=release
+ - using code:  gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] GET    /                         --> main.main.func2 (4 handlers)
+[GIN-debug] Loaded HTML Templates (3):
+        -
+        - fileupload.html
+        - index.html
+
+[GIN-debug] GET    /templates                --> main.main.func3 (4 handlers)
+[GIN-debug] GET    /static/*filepath         --> github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1 (4 handlers)
+[GIN-debug] HEAD   /static/*filepath         --> github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1 (4 handlers)
+[GIN-debug] GET    /upload                   --> main.main.func4 (4 handlers)
+[GIN-debug] POST   /upload                   --> main.main.func5 (4 handlers)
+[GIN-debug] POST   /book/v1/add              --> gin_test/controller.BookAdd (5 handlers)
+[GIN-debug] GET    /book/v1/list             --> gin_test/controller.BookList (5 handlers)
+[GIN-debug] PUT    /book/v1/update           --> gin_test/controller.BookUpdate (5 handlers)
+[GIN-debug] DELETE /book/v1/delete           --> gin_test/controller.BookDelete (5 handlers)
+[GIN-debug] Listening and serving HTTP on :3000
+```
+
+check ``/book/v1/`` endpoints.
+
+next,  
+check that a book table is created in the MySQL test database.  
+
+PowerShell:  
+
+```powershell
+PS> mysql -uroot -prootpassword -h 127.0.0.1 -P 3306
+```
+
+MySQL:  
+
+```sql
+mysql> use test;
+mysql> show tables;
+mysql> describe book;
+mysql> exit;
+```
+
+logs:  
+
+```powershell
+PS > mysql -uroot -prootpassword -h 127.0.0.1 -P 3306
+mysql: [Warning] Using a password on the command line interface can be insecure.
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 13
+Server version: 8.0.21 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2019, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use test;
+Database changed
+mysql> show tables;
++----------------+
+| Tables_in_test |
++----------------+
+| book           |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> describe book;
++---------+-------------+------+-----+---------+----------------+
+| Field   | Type        | Null | Key | Default | Extra          |
++---------+-------------+------+-----+---------+----------------+
+| id      | int         | NO   | PRI | NULL    | auto_increment |
+| title   | varchar(40) | YES  |     | NULL    |                |
+| content | varchar(40) | YES  |     | NULL    |                |
++---------+-------------+------+-----+---------+----------------+
+3 rows in set (0.01 sec)
+
+mysql> exit
+Bye
+```
+
+### 2.5 book API tests
+
+| path            | method | description
+| --------------- | ------ | ---------------
+| /book/v1/add    | POST   | adding new data to the book
+| /book/v1/list   | GET    | retrieve a list of book data
+| /book/v1/update | PUT    | updating the book's data
+| /book/v1/delete | DELETE | deletion of book data
+
+---
+
+the test is done with cURL(for Windows).  
+(it is also recommended to refer to the data in your MySQL client.)   
+:link: [curl for Windows](https://curl.haxx.se/windows/)  
+
+* ``POST: /book/v1/add`` : 
+
+```powershell
+PS > ./curl --location --request POST "http://localhost:3000/book/v1/add" --form "title=title" --form "content=content"
+{"status":"ok"}
+```
+
+
+* ``GET: /book/v1/list`` : 
+
+```powershell
+PS > ./curl --location --request GET "http://localhost:3000/book/v1/list"
+{"data":[{"id":1,"title":"title","content":"content"}],"message":"ok"}
+```
+
+
+* ``PUT: /book/v1/update`` :
+
+```powershell
+PS > ./curl --location --request PUT "http://localhost:3000/book/v1/update" --form "id=1" --form "title=title-update" --form "content=content-update"
+{"status":"ok"}
+```
+
+
+* ``DELETE: /book/v1/delete`` :
+
+```powershell
+PS > ./curl --location --request DELETE "http://localhost:3000/book/v1/delete" --form  "id=1"
+{"status":"ok"}
+```
+
+
+---
+
+MySQL client reference examples:  
+
+```powershell
+PS > mysql -uroot -prootpassword -h 127.0.0.1 -P 3306
+mysql: [Warning] Using a password on the command line interface can be insecure.
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.21 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2019, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use test;
+Database changed
+mysql> select * from book;
++----+-------+---------+
+| id | title | content |
++----+-------+---------+
+|  1 | title | content |
++----+-------+---------+
+1 row in set (0.00 sec)
+```
 

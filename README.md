@@ -99,16 +99,16 @@ PS go-gin-first-step> go run main.go
 | /upload    | POST   | file upload /images 
 
 *gin.png ：:link: [gin-gonic/gin: Gin is a HTTP web framework written in Go (Golang). It features a Martini-like API with much better performance -- up to 40 times faster. If you need smashing performance, get yourself some Gin.](https://github.com/gin-gonic/gin)   
-
+https://github.com/hosomi/go-gin-first-step/blob/master/commits/master
 
 ---
 
-[history](commits/master) :  
-1. [setup](commit/8714097b1800dc2ca73734414dd8c4f969281d69)  
-2. [hello world!](commit/5a2f66c5e9110f25ecc8f5070978bc10bdc784d0)
-3. [templates](commit/842f245406260292afc302f6bdc98e6d90e25798)
-4. [engine static](commit/aee3207b389d775f4305cdf0593ec71b63af2a4e)
-5. [fileupload & here document](commit/71289644bafd9970b8a68e7fc57238c1ea868990)
+[history](https://github.com/hosomi/go-gin-first-step/commits/master) :  
+1. [setup](https://github.com/hosomi/go-gin-first-step/commit/8714097b1800dc2ca73734414dd8c4f969281d69)  
+2. [hello world!](https://github.com/hosomi/go-gin-first-step/commit/5a2f66c5e9110f25ecc8f5070978bc10bdc784d0) ([branch : hello-world](https://github.com/hosomi/go-gin-first-step/tree/hello-world))
+3. [templates](https://github.com/hosomi/go-gin-first-step/commit/842f245406260292afc302f6bdc98e6d90e25798) ([branch : templates](https://github.com/hosomi/go-gin-first-step/tree/templates))
+4. [engine static](https://github.com/hosomi/go-gin-first-step/commit/aee3207b389d775f4305cdf0593ec71b63af2a4e) ([branch : static](https://github.com/hosomi/go-gin-first-step/tree/static))
+5. [fileupload & here document](https://github.com/hosomi/go-gin-first-step/commit/71289644bafd9970b8a68e7fc57238c1ea868990) ([branch : file-upload](https://github.com/hosomi/go-gin-first-step/tree/file-upload))
 
 　  
 

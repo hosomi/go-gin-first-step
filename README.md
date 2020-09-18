@@ -99,7 +99,6 @@ PS go-gin-first-step> go run main.go
 | /upload    | POST   | file upload /images 
 
 *gin.png ：:link: [gin-gonic/gin: Gin is a HTTP web framework written in Go (Golang). It features a Martini-like API with much better performance -- up to 40 times faster. If you need smashing performance, get yourself some Gin.](https://github.com/gin-gonic/gin)   
-https://github.com/hosomi/go-gin-first-step/blob/master/commits/master
 
 ---
 

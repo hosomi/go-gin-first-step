@@ -1,2 +1,2 @@
-FROM mysql:8
+FROM mysql:26
 EXPOSE 3306
